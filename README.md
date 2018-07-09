@@ -16,6 +16,8 @@ sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx
 
 sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx -lan_ip=xxx.xxx.xxx.xxx
 
+3. Explain
+
 -client : Client ID of DirectAdmin license - replace xxxxx with your Client ID.
 
 -license: License ID of DirectAdmin license - replace xxxxxx with your License ID.
