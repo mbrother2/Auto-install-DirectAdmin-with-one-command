@@ -1,4 +1,4 @@
-# Auto-install-DirectAdmin-on-LAN-IP
+# Auto-install-DirectAdmin-with-one-command
 ---
 A tool auto install DirectAdmin with one command
 
