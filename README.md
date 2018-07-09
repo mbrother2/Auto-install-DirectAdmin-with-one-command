@@ -3,13 +3,13 @@
 A tool auto install DirectAdmin with one command
 
 HOW TO USE:
-1. Create a bash file (example auto.sh) with content of file auto_install.bash
-2. Run this command if you want to install DirectAdmin on public (external) IP:
-
+1. Download bash script
+curl -o auto_install.bash https://raw.githubusercontent.com/mbrother2/Auto-install-DirectAdmin-with-one-command/master/auto_install.bash
+2. Run command 
++ If you want to install DirectAdmin on public (external) IP:
 sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx
 
-Run this command if you want to install DirectAdmin on private (internal) IP:
-
++If you want to install DirectAdmin on private (internal) IP:
 sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx -lan_ip=xxx.xxx.xxx.xxx
 
 -client : Client ID of DirectAdmin license - replace xxxxx with your Client ID.
