@@ -10,11 +10,11 @@ curl -o auto_install.bash https://raw.githubusercontent.com/mbrother2/Auto-insta
 2. Run command 
 + If you want to install DirectAdmin on public (external) IP:
 
-sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx
+sh auto_install.bash -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx
 
 + If you want to install DirectAdmin on private (internal) IP:
 
-sh auto.sh -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx -lan_ip=xxx.xxx.xxx.xxx
+sh auto_install.bash -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx -lan_ip=xxx.xxx.xxx.xxx
 
 3. Explain
 
