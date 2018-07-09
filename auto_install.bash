@@ -1,5 +1,5 @@
 #!/bin/bash
-# Auto Install DirectAdmin on LAN IP
+# Auto Install DirectAdmin with one command
 # Author: mbrother
 # Date: 09-07-2018
 # Version: 1.0
