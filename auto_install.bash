@@ -107,7 +107,7 @@ ADMIN_PASS=`cat /usr/local/directadmin/scripts/setup.txt | grep adminpass | cut 
 if [ -z $4 ]
 then
     echo " ####################"
-    echo " -e # ${GREEN}Everything DONE!${REMOVE} #"
+    echo -e " # ${GREEN}Everything DONE!${REMOVE} #"
     echo " ####################"
     echo " Login informations:"
     echo " Link:     http://${IP_PUBLIC}:2222"
