@@ -50,4 +50,4 @@ sh auto_install.bash client=12345 license=123456 host=local.mbr.dev lan_ip=192.1
 
 sh auto_install.bash client=12345 license=123456 host=local.mbr.dev lan_ip=192.168.1.8 web-server=nginx php-version=7.0 php-mode=php-fpm
 
-sh auto_install.bash client=12345 license=123456 host=local.mbr.dev lan_ip=no web-server=nginx php-version=7.0 php-mode=php-fpm php-version=7.2 php-mode=php-fpm ftp=pureftpd
+sh auto_install.bash client=12345 license=123456 host=local.mbr.dev lan_ip=no web-server=nginx php-version=7.0 php-mode=php-fpm php2-version=7.2 php2-mode=php-fpm ftp=pureftpd
