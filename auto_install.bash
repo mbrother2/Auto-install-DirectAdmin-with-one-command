@@ -32,7 +32,7 @@ show_help(){
     echo " client       : Client ID of DirectAdmin license"
     echo " license      : License ID of DirectAdmin license"
     echo " host         : Full hostname (FQDN) of server"
-    echo " lan_ip       : LAN IP which you want to use"
+    echo " lan_ip       : LAN IP which you want to use ${GREEN}(your.lan.ip.address/no)${REMOVE}"
     echo -e " web-server   : Web server will be install ${GREEN}(apache/nginx/nginx_apache/litespeed)${REMOVE}"
     echo -e " php-version  : Default PHP version will be install ${GREEN}(5.3/5.4/5.5/5.6/7.0/7.1/7.2)${REMOVE}"
     echo -e " php-mode     : Default PHP mode will be install ${GREEN}(php-fpm/fastcgi/suphp/lsphp/mod_php)${REMOVE}"
