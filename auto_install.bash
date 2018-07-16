@@ -54,14 +54,17 @@ fi
 if [ ! -z $4 ]
 then
     LAN_IP=`echo $4 | cut -d"=" -f2`
-    CARD_NAME=`ip route | grep ${LAN_IP} | awk '{print $3}'`
-    if [ -z ${CARD_NAME} ]
-    then
-        show_help
-        echo -e "${RED} ERROR! IP ${REMOVE}$LAN_IP ${RED}does not exist on your server!${REMOVE}"
-        exit 1
+    if [ "${LAN_IP}" != "no" ]
+	then
+        CARD_NAME=`ip route | grep ${LAN_IP} | awk '{print $3}'`
+        if [ -z ${CARD_NAME} ]
+        then
+            show_help
+            echo -e "${RED} ERROR! IP ${REMOVE}$LAN_IP ${RED}does not exist on your server!${REMOVE}"
+            exit 1
+        fi
+        CARD_PUBLIC="${CARD_NAME}:0"
     fi
-    CARD_PUBLIC="${CARD_NAME}:0"
 fi
 
 if [ ! -z $5 ]
@@ -146,7 +149,7 @@ yum -y install wget perl
 IP_PUBLIC=`wget -q -O - http://myip.directadmin.com`
 
 # Config LAN IP
-if [ -z $4 ]
+if [[ -z $4 ]] || [[ "${LAN_IP}" == "no" ]]
 then
     CARD_PUBLIC=`ip route get 1 | awk '{print $5; exit}'`
 else
@@ -253,7 +256,7 @@ rm -f $0
 ADMIN_PASS=`cat /usr/local/directadmin/scripts/setup.txt | grep adminpass | cut -d"=" -f2`
 
 
-if [ -z $4 ]
+if [[ -z $4 ]] || [[ "${LAN_IP}" == "no" ]]
 then
     echo " ####################"
     echo -e " # ${GREEN}Everything DONE!${REMOVE} #"
