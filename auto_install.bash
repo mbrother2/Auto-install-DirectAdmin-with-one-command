@@ -1,7 +1,7 @@
 #!/bin/bash
 # Auto Install DirectAdmin with one command
 # Author: mbrother
-# Date: 09-07-2018
+# Date: 16-07-2018
 # Version: 1.0
 
 # Set variables
@@ -20,24 +20,38 @@ HOST=`echo $3 | cut -d"=" -f2`
 show_help(){
     echo -e " ${RED}ERROR!${REMOVE}"
     echo " Please use this command:"
-    echo " sh $0 -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx"
+    echo -e " ${GREEN}sh $0 client=xxxxx license=xxxxxx host=xxx.xxx.xxx${REMOVE}"
     echo ""
     echo -e " or if you want install DirectAdmin for ${GREEN}LAN IP${REMOVE}:"
-    echo " sh $0 -client=xxxxx -license=xxxxxx -host=xxx.xxx.xxx -lan_ip=xxx.xxx.xxx.xxx"
+    echo -e " ${GREEN}sh $0 client=xxxxx license=xxxxxx host=xxx.xxx.xxx lan_ip=xxx.xxx.xxx.xxx${REMOVE}"
+    echo ""
+    echo " or if you want to custom web server, php version...:"
+    echo -e " ${GREEN}sh $0 client=xxxxx license=xxxxxx host=cxxx.xxx.xxx lan_ip=xxx.xxx.xxx.xxx web-server=xxx php-version=x.x php-mode=xxx php2-version=x.x php2-mode=xxx ftp=xxx${REMOVE}"
+    echo ""
     echo " ---"
-    echo " -client : Client ID of DirectAdmin license"
-    echo " -license: License ID of DirectAdmin license"
-    echo " -host   : Full hostname (FQDN) of server"
-    echo " -lan_ip : LAN IP which you want to use"
+    echo " client       : Client ID of DirectAdmin license"
+    echo " license      : License ID of DirectAdmin license"
+    echo " host         : Full hostname (FQDN) of server"
+    echo " lan_ip       : LAN IP which you want to use"
+    echo -e " web-server   : Web server will be install ${GREEN}(apache/nginx/nginx_apache/litespeed)${REMOVE}"
+    echo -e " php-version  : Default PHP version will be install ${GREEN}(5.3/5.4/5.5/5.6/7.0/7.1/7.2)${REMOVE}"
+    echo -e " php-mode     : Default PHP mode will be install ${GREEN}(php-fpm/fastcgi/suphp/lsphp/mod_php)${REMOVE}"
+    echo -e " php2-version : Second PHP version will be install ${GREEN}(5.3/5.4/5.5/5.6/7.0/7.1/7.2)${REMOVE}"
+    echo -e " php2-mode    : Second PHP mode will be install ${GREEN}(php-fpm/fastcgi/suphp/lsphp/mod_php)${REMOVE}"
+    echo -e " ftp          : FTP server will be install ${GREEN}(proftpd/pureftpd/no)${REMOVE}"
+    echo ""
 }
 
 echo -e "${GREEN} Checking input values...${REMOVE}"
 sleep 2
-if [[ "${CLIENT_ID_CHECK}" != "-client" ]] || [[ "${LICENSE_ID_CHECK}" != "-license" ]] || [[ "${HOST_CHECK}" != "-host" ]] || [[ -z "${CLIENT_ID}" ]] || [[ -z "${LICENSE_ID}" ]] || [[ -z "${HOST}" ]]
+
+if [[ "${CLIENT_ID_CHECK}" != "client" ]] || [[ "${LICENSE_ID_CHECK}" != "license" ]] || [[ "${HOST_CHECK}" != "host" ]] || [[ -z "${CLIENT_ID}" ]] || [[ -z "${LICENSE_ID}" ]] || [[ -z "${HOST}" ]]
 then
     show_help
     exit 1
-elif [ ! -z $4 ]
+fi
+
+if [ ! -z $4 ]
 then
     LAN_IP=`echo $4 | cut -d"=" -f2`
     CARD_NAME=`ip route | grep ${LAN_IP} | awk '{print $3}'`
@@ -48,8 +62,82 @@ then
         exit 1
     fi
     CARD_PUBLIC="${CARD_NAME}:0"
-    echo -e "${GREEN} PASS! Start to install...${REMOVE}"
 fi
+
+if [ ! -z $5 ]
+then
+    WEB_SERVER_CHECK=`echo $5 | cut -d"=" -f1`
+    if [[ "${WEB_SERVER_CHECK}" != "web-server" ]]
+    then
+        show_help
+        echo -e "${RED} Unknown option $5${REMOVE}"
+        exit 1
+    fi
+    WEB_SERVER=`echo $5 | cut -d"=" -f2`
+
+
+    if [ ! -z $6 ]
+    then
+        PHP1_VERSION_CHECK=`echo $6 | cut -d"=" -f1`
+        if [[ "${PHP1_VERSION_CHECK}" != "php-version" ]]
+        then
+            show_help
+            echo -e "${RED} Unknown option $6${REMOVE}"
+            exit 1
+        fi
+        PHP1_VERSION=`echo $6 | cut -d"=" -f2`
+    fi
+
+    if [ ! -z $7 ]
+    then
+        PHP1_MOD_CHECK=`echo $7 | cut -d"=" -f1`
+        if [[ "${PHP1_MOD_CHECK}" != "php-mode" ]]
+        then
+            show_help
+            echo -e "${RED} Unknown option $7${REMOVE}"
+            exit 1
+        fi
+        PHP1_MOD=`echo $7 | cut -d"=" -f2`
+    fi
+    
+        if [ ! -z $8 ]
+    then
+        PHP2_VERSION_CHECK=`echo $8 | cut -d"=" -f1`
+        if [[ "${PHP2_VERSION_CHECK}" != "php2-version" ]]
+        then
+            show_help
+            echo -e "${RED} Unknown option $8${REMOVE}"
+            exit 1
+        fi
+        PHP2_VERSION=`echo $8 | cut -d"=" -f2`
+    fi
+	
+    if [ ! -z $9 ]
+    then
+        PHP2_MOD_CHECK=`echo $9 | cut -d"=" -f1`
+        if [[ "${PHP2_MOD_CHECK}" != "php2-mode" ]]
+        then
+            show_help
+            echo -e "${RED} Unknown option $9${REMOVE}"
+            exit 1
+        fi
+        PHP2_MOD=`echo $9 | cut -d"=" -f2`
+    fi
+	
+    if [ ! -z $10 ]
+    then
+        FTP_CHECK=`echo ${10} | cut -d"=" -f1`
+        if [[ "${FTP_CHECK}" != "ftp" ]]
+        then
+            show_help
+            echo -e "${RED} Unknown option ${10}${REMOVE}"
+            exit 1
+        fi
+        FTP=`echo ${10} | cut -d"=" -f2`
+    fi
+fi
+
+echo -e "${GREEN} PASS! Start to install...${REMOVE}"
 
 # Install requirement packages
 echo -e "${GREEN} Installing requirement packages...${REMOVE}"
@@ -84,7 +172,10 @@ echo -e "${GREEN} Installing DirectAdmin with default option...${REMOVE}"
 sleep 2
 wget -O $HOME/setup.sh http://www.directadmin.com/setup.sh
 cd $HOME
-sh setup.sh <<EOF
+
+if [ -z $5 ]
+then
+    sh setup.sh <<EOF
 y
 ${CLIENT_ID}
 ${LICENSE_ID}
@@ -96,6 +187,64 @@ y
 y
 y
 EOF
+elif [ -z $8 ]
+then
+    sh setup.sh <<EOF
+y
+${CLIENT_ID}
+${LICENSE_ID}
+${HOST}
+y
+${CARD_PUBLIC}
+y
+y
+n
+yes
+${WEB_SERVER}
+pureftpd
+${PHP1_VERSION}
+${PHP1_MOD}
+no
+yes
+yes
+no
+yes
+yes
+yes
+yes
+yes
+y
+EOF
+else
+    sh setup.sh <<EOF
+y
+${CLIENT_ID}
+${LICENSE_ID}
+${HOST}
+y
+${CARD_PUBLIC}
+y
+y
+n
+yes
+${WEB_SERVER}
+${FTP}
+${PHP1_VERSION}
+${PHP1_MOD}
+yes
+${PHP2_VERSION}
+${PHP2_MOD}
+yes
+yes
+no
+yes
+yes
+yes
+yes
+yes
+y
+EOF
+fi
 
 rm -f $HOME/setup.sh
 rm -f $0
