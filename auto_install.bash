@@ -170,8 +170,8 @@ EOF
     ifup ifcfg-${CARD_PUBLIC}
 fi
 
-# Install DirectAdmin with default option
-echo -e "${GREEN} Installing DirectAdmin with default option...${REMOVE}"
+# Install DirectAdmin
+echo -e "${GREEN} Installing DirectAdmin ...${REMOVE}"
 sleep 2
 wget -O $HOME/setup.sh http://www.directadmin.com/setup.sh
 cd $HOME
