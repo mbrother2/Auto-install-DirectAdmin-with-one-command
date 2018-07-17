@@ -18,7 +18,7 @@ sh auto_install.bash client=xxxxx license=xxxxxx host=xxx.xxx.xxx lan_ip=xxx.xxx
 
 + If you want to custom web server, php version...:
 
-sh auto_install.bash client=xxxxx license=xxxxxx host=cxxx.xxx.xxx lan_ip=xxx.xxx.xxx.xxx web-server=xxx php-version=x.x php-mode=xxx php2-version=x.x php2-mode=xxx ftp=xxx
+sh auto_install.bash client=xxxxx license=xxxxxx host=xxx.xxx.xxx lan_ip=xxx.xxx.xxx.xxx web-server=xxx php-version=x.x php-mode=xxx php2-version=x.x php2-mode=xxx ftp=xxx
 
 3. Explain
 
