@@ -2,12 +2,12 @@
 ---
 A tool auto install DirectAdmin with one command
 
-HOW TO USE:
-1. Download bash script
+## HOW TO USE:
+### 1. Download bash script
 
 curl -o auto_install.bash https://raw.githubusercontent.com/mbrother2/Auto-install-DirectAdmin-with-one-command/master/auto_install.bash
 
-2. Run command 
+### 2. Run command 
 + If you want to install DirectAdmin on public (external) IP:
 
 sh auto_install.bash client=xxxxx license=xxxxxx host=xxx.xxx.xxx
@@ -20,7 +20,7 @@ sh auto_install.bash client=xxxxx license=xxxxxx host=xxx.xxx.xxx lan_ip=xxx.xxx
 
 sh auto_install.bash client=xxxxx license=xxxxxx host=xxx.xxx.xxx lan_ip=xxx.xxx.xxx.xxx web-server=xxx php-version=x.x php-mode=xxx php2-version=x.x php2-mode=xxx ftp=xxx
 
-3. Explain
+### 3. Explain
 
 client       : Client ID of DirectAdmin license
 
@@ -42,7 +42,7 @@ php2-mode    : Second PHP mode will be install (php-fpm/fastcgi/suphp/lsphp/mod_
 
 ftp          : FTP server will be install (proftpd/pureftpd/no)
 
-4. Example
+### 4. Example
 
 sh auto_install.bash client=12345 license=123456 host=local.mbr.dev
 
